@@ -97,12 +97,15 @@ public class StatusGetterServiceImpl implements StatusGetterService {
 					final int count = statement.executeUpdate();
 					if (count != 1) {
 						log.error("レコード登録に失敗しました。登録件数: " + count);
+						return;
 					}
 				} catch (SQLException e) {
 					log.error("NatureRemo状態テーブルのレコード登録に失敗しました。", e);
+					return;
 				}
 			} catch (SQLException e) {
 				log.error("NatureRemo状態テーブルのインサート文生成に失敗しました。", e);
+				return;
 			}
 		} catch (SQLException e) {
 			log.error("DB接続に失敗しました。", e);
