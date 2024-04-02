@@ -46,6 +46,7 @@ public class StatusGetterServiceImpl implements StatusGetterService {
 			prop.load(stream);
 		} catch (IOException e) {
 			log.error("プロパティファイル取得に失敗しました。", e);
+			return;
 		}
 		
 		// NatureRemoサーバー通信.
