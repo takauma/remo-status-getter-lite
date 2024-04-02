@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+<Configuration status="off">
+    <Properties>
+        <Property name="format">%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%t] %C:%L %m%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${format}" />
+        </Console>
+		<RollingFile
+			name="fileAppender"
+			fileName="/apps/logs/remo-status-getter-lite/remo-status-getter-lite.log"
+			filePattern="/apps/logs/remo-status-getter-lite/remo-status-getter-lite_%d{yyyyMMdd}.log"
+		>
+			<PatternLayout pattern="${format}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+        	<AppenderRef ref="fileAppender" />
+            <AppenderRef ref="consoleAppender" />
+        </Root>
+    </Loggers>
+</Configuration>

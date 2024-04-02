@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="emo-status-getter-lite" default="production" basedir=".">
+	<property file="build.properties" />
+	
+	<path id="compile.classpath">
+		<fileset dir="${dir.lib}">
+			<include name="*" />
+		</fileset>
+		<fileset dir="${dir.compile_lib}">
+			<include name="*" />
+		</fileset>
+	</path>
+	
+	<target name="production" description="本番用JARファイル作成.">
+		<echo message="本番用JARファイル作成開始." />
+		<antcall target="_clean" />
+		<antcall target="_compile">
+			<param name="environment" value="production" />
+		</antcall>
+		<jar basedir="${dir.target.classes}" destfile="${dir.target}/${jarname}.jar" />
+		<delete dir="${dir.target.classes}" />
+		<echo message="本番用JARファイル作成終了." />
+	</target>
+	
+	<target name="_clean" description="ビルド成果物フォルダのクリーンアップを行います.">
+		<delete dir="${dir.target}" failonerror="false" />
+		<mkdir dir="${dir.target}" />
+		<mkdir dir="${dir.target.classes}" />
+	</target>
+		
+	<target name="_compile" description="コンパイルを行います.">
+		<mkdir dir="${dir.target.classes}" />
+		<javac
+			classpathref="compile.classpath"
+			srcdir="${dir.src}"
+			destdir="${dir.target.classes}"
+			encoding="UTF-8"
+			source="11"
+			target="11"
+			includeAntRuntime="false"
+			debug="true"
+		/>
+		<copy todir="${dir.target.classes}">
+			<fileset dir="${dir.settings}/${environment}">
+				<include name="*" />
+			</fileset>
+		</copy>
+	</target>
+</project>
